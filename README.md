@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ITT-340 Pen Testing Report</title>
+  
 </head>
 <body>
-<h1>ITT-340 Pen Testing Report</h1>
+<h1>OWASP Juice Shop CTFs</h1>
 
 <h2>Table of Contents</h2>
 <ol>
@@ -21,6 +21,16 @@
     <li>Login Admin</li>
     <li>Classic Stored XSS</li>
     <li>Appendix</li>
+    <li>Appendix: A</li>
+    <li>Appendix: B</li>
+    <li>Appendix: C</li>
+    <li>Appendix: D</li>
+    <li>Appendix: E</li>
+    <li>Appendix: F</li>
+    <li>Appendix: G</li>
+    <li>Appendix: H</li>
+    <li>Appendix: I</li>
+    <li>Appendix: J</li>
 </ol>
 
 <h2>ITT-340 Final Report Guidelines</h2>
@@ -41,15 +51,15 @@
     </thead>
     <tbody>
         <tr><td>1</td><td>12/15/2024</td><td>Brady Reid</td><td>Improper Input Validation (Zero Stars)</td></tr>
-        <tr><td>1.2</td><td>12/15/2024</td><td>Brady Reid</td><td>Confidential Document Exposure</td></tr>
-        <tr><td>1.3</td><td>12/15/2024</td><td>Brady Reid</td><td>DOM XSS</td></tr>
+        <tr><td>1.2</td><td>12/15/2024</td><td>Brady Reid</td><td>Confidential Document Exposure (Sensitive Data Exposure)</td></tr>
+        <tr><td>1.3</td><td>12/15/2024</td><td>Brady Reid</td><td>DOM XSS (XSS)</td></tr>
         <tr><td>1.4</td><td>12/15/2024</td><td>Brady Reid</td><td>Error Handling (Security Misconfiguration)</td></tr>
-        <tr><td>1.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Missing Encoding</td></tr>
+        <tr><td>1.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Missing Encoding (Improper Input Validation)</td></tr>
         <tr><td>2.0</td><td>12/15/2024</td><td>Brady Reid</td><td>Outdated Whitelist (Unvalidated Redirects)</td></tr>
-        <tr><td>2.2</td><td>12/15/2024</td><td>Brady Reid</td><td>Privacy Policy</td></tr>
-        <tr><td>2.3</td><td>12/15/2024</td><td>Brady Reid</td><td>Repetitive Registration</td></tr>
-        <tr><td>2.4</td><td>12/15/2024</td><td>Brady Reid</td><td>Login Admin</td></tr>
-        <tr><td>2.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Classic Stored XSS</td></tr>
+        <tr><td>2.2</td><td>12/15/2024</td><td>Brady Reid</td><td>Privacy Policy (Miscellaneous)</td></tr>
+        <tr><td>2.3</td><td>12/15/2024</td><td>Brady Reid</td><td>Repetitive Registration (Improper Input Validation)</td></tr>
+        <tr><td>2.4</td><td>12/15/2024</td><td>Brady Reid</td><td>Login Admin (Injection)</td></tr>
+        <tr><td>2.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Classic Stored XSS (XSS)</td></tr>
     </tbody>
 </table>
 
@@ -109,8 +119,81 @@
 
 <hr>
 
-<h3>Additional Challenges</h3>
-<p>Details for challenges such as Missing Encoding, Outdated Whitelist, Repetitive Registration, Login Admin, and Classic Stored XSS are similarly documented with objectives, steps, outcomes, and recommendations.</p>
+<h3>Missing Encoding</h3>
+<p>Objective: Exploit a vulnerability due to missing input encoding, which allows special characters to bypass security mechanisms.</p>
+<p><strong>Outcome:</strong> The application failed to encode user input, enabling malicious payloads to execute.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Encode special characters in HTML, JavaScript, or URLs.</li>
+    <li>Use frameworks that handle encoding automatically.</li>
+    <li>Implement Content Security Policy (CSP).</li>
+</ul>
+
+<hr>
+
+<h3>Outdated Whitelist (Unvalidated Redirects)</h3>
+<p>Objective: Exploit an outdated whitelist to redirect users to unauthorized sites.</p>
+<p><strong>Outcome:</strong> Successfully bypassed whitelist validation, redirecting to malicious URLs.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Validate redirect URLs against strict and updated whitelists.</li>
+    <li>Restrict redirections to internal paths only.</li>
+    <li>Use security headers to mitigate redirect risks.</li>
+</ul>
+
+<hr>
+
+<h3>Privacy Policy</h3>
+<p>Objective: Locate the Privacy Policy page in OWASP Juice Shop to complete the challenge.</p>
+<p><strong>Outcome:</strong> Successfully located and accessed the Privacy Policy page.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Ensure the Privacy Policy is easily accessible from the homepage.</li>
+    <li>Regularly update the Privacy Policy to comply with regulations.</li>
+    <li>Provide transparency about data collection practices.</li>
+</ul>
+
+<hr>
+
+<h3>Repetitive Registration</h3>
+<p>Objective: Exploit validation mechanisms to create duplicate accounts.</p>
+<p><strong>Outcome:</strong> Successfully created duplicate accounts using bypass techniques.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Enforce database constraints for unique email addresses and usernames.</li>
+    <li>Implement server-side input normalization.</li>
+    <li>Apply rate limiting to prevent abuse.</li>
+</ul>
+
+<hr>
+
+<h3>Login Admin</h3>
+<p>Objective: Exploit an SQL Injection vulnerability to log in as the admin user.</p>
+<p><strong>Outcome:</strong> Successfully bypassed authentication to access admin privileges.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Use parameterized queries or ORM frameworks.</li>
+    <li>Sanitize user inputs to remove malicious characters.</li>
+    <li>Limit database permissions to minimize potential damage.</li>
+</ul>
+
+<hr>
+
+<h3>Classic Stored XSS</h3>
+<p>Objective: Exploit a stored XSS vulnerability to execute persistent JavaScript payloads.</p>
+<p><strong>Outcome:</strong> Successfully stored and executed malicious scripts in the application.</p>
+
+<h4>Recommendations:</h4>
+<ul>
+    <li>Validate and sanitize all user inputs before storage.</li>
+    <li>Encode user data when rendering it in the browser.</li>
+    <li>Implement a strict Content Security Policy (CSP).</li>
+</ul>
 
 <hr>
 
@@ -119,6 +202,13 @@
     <li>Appendix A: Supporting Diagrams</li>
     <li>Appendix B: Detailed Logs</li>
     <li>Appendix C: Code Snippets</li>
+    <li>Appendix D: Tool Configurations</li>
+    <li>Appendix E: Vulnerability Details</li>
+    <li>Appendix F: Exploitation Screenshots</li>
+    <li>Appendix G: Environment Setup</li>
+    <li>Appendix H: Assessment Checklist</li>
+    <li>Appendix I: References</li>
+    <li>Appendix J: Additional Notes</li>
 </ul>
 
 <hr>
