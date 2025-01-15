@@ -210,6 +210,15 @@
     <li>Appendix I: References</li>
     <li>Appendix J: Additional Notes</li>
 </ul>
+<p align="center">
+    <img src="AppendixA.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixB.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixC.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixD.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixE.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixF.png" width="70%" alt="Launch the utility" /><br/><br/>
+    <img src="AppendixG.png" width="70%" alt="Launch the utility" /><br/><br/>
+</p>
 
 <hr>
 
