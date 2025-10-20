@@ -1,99 +1,108 @@
-# OWASP Juice Shop — CTF Writeups  
+# 🧠 OWASP Juice Shop — CTF Report  
 **Author:** Brady Reid  
-**Course:** ITT-340 — Penetration Testing (Educational lab)  
-**Updated:** 2024-12-15
+**Course:** ITT-340 — Penetration Testing & Ethical Hacking  
+**Date:** December 2024  
+**Environment:** Controlled Educational Sandbox  
+
+[![View Live Report](https://img.shields.io/badge/View_Live_Report-Click_Here-blue?logo=githubpages&style=for-the-badge)](https://brady0reid.github.io/OWASP-Juice-Shop-CTF/)
+[![Made with Kali Linux](https://img.shields.io/badge/Made%20with-Kali%20Linux-2684FF?logo=kalilinux&logoColor=white)]()
+[![Uses OWASP Juice Shop](https://img.shields.io/badge/Platform-OWASP%20Juice%20Shop-orange?logo=owasp)]()
+[![Status](https://img.shields.io/badge/Status-Completed-success)]()
 
 ---
 
-[![Live Site](https://img.shields.io/badge/Live%20Report-GitHub%20Pages-blue?logo=github)](https://brady0reid.github.io/Pen-Test-Report/)
-
-> Collection of challenge writeups, findings, and remediation guidance based on hands-on OWASP Juice Shop CTF exercises. All testing was done in an isolated lab environment for educational purposes.
-
----
-
-## Quick links
-- 🔗 **Live HTML report (GitHub Pages):** https://brady0reid.github.io/Pen-Test-Report/  
-- 📁 **Repository:** `./` (this repo)  
-- ✉️ **Contact:** bradycreid@protonmail.com  
-- 🔒 **Disclaimer:** Lab-only work. Do **not** use techniques on systems you do not own or have permission to test.
+## 📘 Overview
+This repository documents a series of **OWASP Juice Shop Capture-the-Flag (CTF)** challenges performed as part of the **ITT-340 Penetration Testing** course at Grand Canyon University.  
+The objective was to exploit web application vulnerabilities in a legal, sandboxed environment and produce structured technical documentation of each finding, including the root cause and recommended mitigation strategies.
 
 ---
 
-## Summary
-This repo contains writeups for several OWASP Juice Shop Capture-The-Flag (CTF) challenges. Each writeup describes the objective, outcome, root cause, and recommended remediations. Topics covered include:
-
-- Improper input validation (ratings / zero stars)  
-- Confidential document exposure (sensitive file access)  
-- DOM XSS and classic Stored XSS  
-- Error handling / information leakage  
-- Missing encoding and injection vectors  
-- Unvalidated redirects (outdated whitelist)  
-- Repetitive registration, admin login bypass (SQL injection)  
-- Appendix: screenshots, request/response artifacts, and supporting diagrams
+## 🔎 Project Objectives
+- Identify, exploit, and document vulnerabilities in **OWASP Juice Shop**.  
+- Demonstrate key penetration testing methodologies (reconnaissance, exploitation, remediation).  
+- Apply ethical hacking practices within a controlled lab environment.  
+- Produce a professional, version-controlled penetration test report for academic assessment.
 
 ---
 
-## Table of Contents
-1. [Executive Guidelines & Versioning](#guidelines--versioning)  
-2. [Improper Input Validation — Zero Stars](#improper-input-validation)  
-3. [Confidential Document Exposure](#confidential-document-exposure)  
-4. [DOM XSS](#dom-xss)  
-5. [Error Handling (Security Misconfiguration)](#error-handling)  
-6. [Missing Encoding](#missing-encoding)  
-7. [Outdated Whitelist (Unvalidated Redirects)](#outdated-whitelist)  
-8. [Repetitive Registration](#repetitive-registration)  
-9. [Login Admin (Injection)](#login-admin)  
-10. [Classic Stored XSS](#classic-stored-xss)  
-11. [Appendix & Screenshots](#appendix--screenshots)
-
-> See the full live report for detailed screenshots and the Appendix images.
+## 🧩 Challenge Writeups
+| # | Challenge | Category | Exploit Type | Status |
+|---|------------|-----------|---------------|---------|
+| 1 | Improper Input Validation | Input Validation | Zero-star rating bypass | ✅ Solved |
+| 2 | Confidential Document Exposure | Sensitive Data | Unauthorized file access | ✅ Solved |
+| 3 | DOM XSS | Cross-Site Scripting | DOM-based payload | ✅ Solved |
+| 4 | Error Handling | Security Misconfiguration | Stack trace leakage | ✅ Solved |
+| 5 | Missing Encoding | Input Sanitization | Unescaped payload injection | ✅ Solved |
+| 6 | Outdated Whitelist | Unvalidated Redirects | Redirect bypass | ✅ Solved |
+| 7 | Repetitive Registration | Input Validation | Duplicate account creation | ✅ Solved |
+| 8 | Login Admin | Injection | SQLi login bypass | ✅ Solved |
+| 9 | Classic Stored XSS | XSS | Persistent JavaScript injection | ✅ Solved |
 
 ---
 
-## How to view
-1. Ensure the repo contains `index.html` at the root and the appendix screenshot files (AppendixA.png … AppendixH.png).  
-2. Add a blank file named `.nojekyll` in the repo root to ensure raw HTML is served.  
-3. Enable GitHub Pages (Settings → Pages → Source: `main` branch, folder: `/ (root)` ).  
-4. Visit the **Live HTML report** link above.
+## 🧾 Version Control
+| Version | Date | Author | Change Summary |
+|----------|------|---------|----------------|
+| 1.0 | 12/15/2024 | Brady Reid | Initial writeup – Improper Input Validation |
+| 1.2 | 12/15/2024 | Brady Reid | Added Confidential Document Exposure |
+| 1.3 | 12/15/2024 | Brady Reid | Added DOM XSS |
+| 1.4 | 12/15/2024 | Brady Reid | Added Error Handling findings |
+| 1.5 | 12/15/2024 | Brady Reid | Added Missing Encoding |
+| 2.0 | 12/15/2024 | Brady Reid | Added Outdated Whitelist redirect analysis |
+| 2.3 | 12/15/2024 | Brady Reid | Added Repetitive Registration |
+| 2.4 | 12/15/2024 | Brady Reid | Added Login Admin injection |
+| 2.5 | 12/15/2024 | Brady Reid | Added Classic Stored XSS and Appendices |
 
 ---
 
-## Example remediation checklist (high-priority)
-- Patch and replace end-of-life systems.  
-- Implement strict server-side validation and schema checks.  
-- Sanitize and encode all untrusted content (use DOMPurify, template auto-escaping).  
-- Deploy Content Security Policy (CSP) to restrict script execution.  
-- Disable verbose error output in production; log errors centrally (SIEM).  
-- Enforce unique constraints and rate-limiting for accounts.  
-- Use parameterized queries / ORM for DB access; apply least privilege.
+## 🧮 Tools & Technologies
+| Category | Tools Used |
+|-----------|------------|
+| **Operating System** | Kali Linux 2024.2 |
+| **Web Exploitation** | OWASP Juice Shop, Burp Suite, Firefox DevTools |
+| **Reconnaissance** | Nmap, Whois, Wappalyzer |
+| **Exploitation** | Burp Intruder, Repeater, XSS payloads |
+| **Reporting** | Markdown, HTML5, GitHub Pages |
 
 ---
 
-## Appendix (files in repo)
-- `AppendixA.png` — Juice Shop console / challenge solved  
-- `AppendixB.png` — Blockchain/payment artifact screenshot  
-- `AppendixC.png` — DOM inspection / photo wall  
-- `AppendixD.png` — Burp request/response screenshot  
-- `AppendixE.png` — DOM XSS iframe example  
-- `AppendixF.png` — Exploit request/response details  
-- `AppendixG.png` — Customer feedback form screenshot  
-- `AppendixH.png` — Burp intercept JSON payload
+## 📸 Appendix (Screenshots)
+- Appendix A → Juice Shop dashboard & solved challenge proof  
+- Appendix B → Blockchain transaction (redirect validation)  
+- Appendix C → DOM Photo Wall inspection  
+- Appendix D → Burp Suite HTTP request/response  
+- Appendix E → DOM XSS iframe payload  
+- Appendix F → Exploit response capture  
+- Appendix G → Feedback form injection  
+- Appendix H → JSON payload in Burp Repeater  
+
+All appendix files are stored in the repo root for reference.  
 
 ---
 
-## Notes & next steps
-- I recommend moving any **sensitive logs** or command-level exploit notes into a private repo or instructor-only folder.  
-- If you want, I can:
-  - Place the Appendix images inline next to their corresponding challenge sections in `index.html`.  
-  - Generate a printable PDF of the report.  
-  - Add badges (tools used) and a short contributor section.
+## 🔐 Ethical Use & Disclaimer
+This documentation is for **educational and authorized penetration testing only.**  
+All testing occurred within a private sandbox environment (OWASP Juice Shop).  
+No production or third-party systems were targeted.  
+
+**Unauthorized access or exploitation of systems is illegal and unethical.**  
+This report is designed to **teach responsible cybersecurity practices.**
 
 ---
 
-## Contact
-Brady Reid — bradycreid@protonmail.com  
-LinkedIn: https://www.linkedin.com/in/brady-reidin
+## 👨‍💻 Author
+**Brady C. Reid**  
+Grand Canyon University — B.S. Information Technology & Cybersecurity  
+📧 **bradycreid@protonmail.com**  
+🔗 [LinkedIn](https://www.linkedin.com/in/brady-reidin)  
+💻 [GitHub Portfolio](https://github.com/Brady0Reid)
 
 ---
 
-**License:** This repository is for educational use only. Reuse or reproduction of offensive techniques is prohibited outside authorized environments.
+### 🌐 Live Demo  
+👉 **Visit the full interactive report:**  
+📄 [https://brady0reid.github.io/OWASP-Juice-Shop-CTF/](https://brady0reid.github.io/OWASP-Juice-Shop-CTF/)
+
+---
+
+**© 2025 Brady C. Reid — Educational Use Only**
