@@ -1,1 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OWASP Juice Shop CTFs — Report — Brady Reid</title>
+  <meta name="description" content="OWASP Juice Shop CTFs - challenge writeups, findings, recommendations and appendices."/>
+  <style>
+    :root{
+      --bg:#0b1220; --card:#0f1724; --panel:#0f1a2b; --accent:#2bd4ff;
+      --muted:#98a8b9; --text:#e6eef6; --accent-2:#7c3aed;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#06111a,#071425);color:var(--text);line-height:1.5}
+    .wrap{max-width:1100px;margin:28px auto;padding:18px}
+    header{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+    .brand{width:84px;height:84px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),#1f9bd3);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px}
+    h1{margin:0;font-size:26px}
+    .meta{color:var(--muted);font-size:13px;margin-top:4px}
+    nav.toc{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:10px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.03)}
+    nav.toc h2{font-size:16px;margin:0 0 8px 0;color:var(--accent)}
+    nav.toc ol{margin:0;padding-left:18px;color:var(--muted)}
+    section.card{background:var(--card);padding:18px;border-radius:10px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.03)}
+    section.card h2{color:var(--accent);margin-top:0}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left;color:var(--muted);font-size:14px}
+    th{color:var(--text);background:rgba(255,255,255,0.02);font-weight:600}
+    .summary{background:linear-gradient(90deg, rgba(43,212,255,0.06), rgba(124,58,237,0.03));padding:10px;border-radius:8px;color:var(--muted);margin:8px 0}
+    .recommend{background:#081826;padding:10px;border-radius:8px;color:var(--muted);margin:8px 0}
+    .screens{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .screens img{width:100%;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(2,6,23,0.6)}
+    pre {background:#071021;padding:12px;border-radius:8px;overflow:auto;color:var(--muted);font-size:13px}
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    a{color:var(--accent)}
+    @media(max-width:900px){.screens{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">BR</div>
+      <div>
+        <h1>OWASP Juice Shop — CTF Writeups</h1>
+        <div class="meta">Compiled by <strong>Brady Reid</strong> · Course: ITT-340 · Lab report & challenge writeups</div>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Table of contents</h2>
+      <ol>
+        <li><a href="#guidelines">ITT-340 Final Report Guidelines</a></li>
+        <li><a href="#improper-input">Improper Input Validation (Zero Stars)</a></li>
+        <li><a href="#confidential">Confidential Document Exposure</a></li>
+        <li><a href="#dom-xss">DOM XSS</a></li>
+        <li><a href="#error-handling">Error Handling (Security Misconfiguration)</a></li>
+        <li><a href="#missing-encoding">Missing Encoding</a></li>
+        <li><a href="#outdated-whitelist">Outdated Whitelist (Unvalidated Redirects)</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#repetitive-registration">Repetitive Registration</a></li>
+        <li><a href="#login-admin">Login Admin</a></li>
+        <li><a href="#stored-xss">Classic Stored XSS</a></li>
+        <li><a href="#appendix">Appendix & Images</a></li>
+      </ol>
+    </nav>
+
+    <section id="guidelines" class="card">
+      <h2>ITT-340 Final Report Guidelines</h2>
+      <p class="small"><strong>Title:</strong> ITT-340 Pen Testing Report — <strong>Author:</strong> Brady Reid</p>
+
+      <h3>Versioning Control</h3>
+      <table>
+        <thead>
+          <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>12/15/2024</td><td>Brady Reid</td><td>Improper Input Validation (Zero Stars)</td></tr>
+          <tr><td>1.2</td><td>12/15/2024</td><td>Brady Reid</td><td>Confidential Document Exposure</td></tr>
+          <tr><td>1.3</td><td>12/15/2024</td><td>Brady Reid</td><td>DOM XSS</td></tr>
+          <tr><td>1.4</td><td>12/15/2024</td><td>Brady Reid</td><td>Error Handling</td></tr>
+          <tr><td>1.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Missing Encoding</td></tr>
+          <tr><td>2.0</td><td>12/15/2024</td><td>Brady Reid</td><td>Outdated Whitelist</td></tr>
+          <tr><td>2.3</td><td>12/15/2024</td><td>Brady Reid</td><td>Repetitive Registration</td></tr>
+          <tr><td>2.4</td><td>12/15/2024</td><td>Brady Reid</td><td>Login Admin (Injection)</td></tr>
+          <tr><td>2.5</td><td>12/15/2024</td><td>Brady Reid</td><td>Classic Stored XSS</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="improper-input" class="card">
+      <h2>Solving Improper Input Validation (Zero Stars)</h2>
+      <div class="summary">
+        <strong>Objective:</strong> Exploit insufficient input validation to submit a zero-star rating.<br>
+        <strong>Outcome:</strong> The app accepted a 0 rating — confirms server or client validation gaps.
+      </div>
+
+      <h4>Root cause</h4>
+      <p class="small">Client-side validation was insufficient and server did not enforce strict bounds for rating values; malformed/abnormal inputs bypassed checks.</p>
+
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Enforce server-side validation and strict input schemas (e.g., JSON schema, parameter validation).</li>
+          <li>Apply client-side validation only for UX — do not rely on it for security.</li>
+          <li>Reject values outside the acceptable range and return clear error responses.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="confidential" class="card">
+      <h2>Confidential Document Exposure</h2>
+      <div class="summary"><strong>Objective:</strong> Access private files (for example backup.sql) via misconfigured endpoints or directory listings.<br><strong>Outcome:</strong> Sensitive files were accessible due to weak access controls.</div>
+
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Remove unnecessary files from public directories; store backups off web root.</li>
+          <li>Disable directory listing on web servers (e.g., Apache/Nginx).</li>
+          <li>Use least privilege for file permissions and protect sensitive endpoints with auth.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dom-xss" class="card">
+      <h2>DOM XSS</h2>
+      <div class="summary"><strong>Objective:</strong> Execute malicious JavaScript via DOM manipulation.<br><strong>Outcome:</strong> Payloads executed when untrusted data was inserted into the DOM without sanitization.</div>
+
+      <h4>Mitigations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Sanitize untrusted content with a vetted library (e.g., DOMPurify) before inserting into DOM.</li>
+          <li>Avoid dangerous APIs such as <code>innerHTML</code>, <code>document.write</code>, and <code>eval</code>.</li>
+          <li>Implement Content Security Policy (CSP) to limit script execution sources.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="error-handling" class="card">
+      <h2>Error Handling (Security Misconfiguration)</h2>
+      <div class="summary"><strong>Objective:</strong> Trigger errors that reveal stack traces or server internals.<br><strong>Outcome:</strong> Detailed stack traces and file paths were exposed in responses.</div>
+
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Disable stack traces and verbose error messages in production.</li>
+          <li>Log detailed errors in a secure system (SIEM) and surface user-friendly generic messages to clients.</li>
+          <li>Sanitize outputs and ensure no sensitive server data is leaked.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="missing-encoding" class="card">
+      <h2>Missing Encoding</h2>
+      <div class="summary"><strong>Objective:</strong> Bypass protections by injecting special characters when input is not properly encoded.<br><strong>Outcome:</strong> Special characters allowed payload delivery in contexts where encoding was expected.</div>
+
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Encode output for the appropriate context (HTML, attribute, URL, JS).</li>
+          <li>Use framework helpers that apply context-appropriate encoding automatically.</li>
+          <li>Enforce input sanitation and canonicalization on server side.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="outdated-whitelist" class="card">
+      <h2>Outdated Whitelist (Unvalidated Redirects)</h2>
+      <div class="summary"><strong>Objective:</strong> Bypass redirect whitelist to forward users to external malicious sites.<br><strong>Outcome:</strong> Redirects to unauthorized URLs were possible due to outdated or weak whitelist validation.</div>
+
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Maintain a strict whitelist of allowed internal paths; validate at server side.</li>
+          <li>Prefer relative paths and avoid direct use of user-supplied URLs in redirects.</li>
+          <li>Reject or canonicalize redirect parameters and alert on unusual destinations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="privacy" class="card">
+      <h2>Privacy Policy</h2>
+      <p class="small">Objective: Locate and review the Privacy Policy page to verify disclosure and compliance. Outcome: Policy was accessible; ensure it stays current.</p>
+      <div class="recommend">
+        <ul>
+          <li>Keep policy reachable, understandable and updated to match data practices.</li>
+          <li>Provide opt-out/consent mechanisms where required.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="repetitive-registration" class="card">
+      <h2>Repetitive Registration</h2>
+      <div class="summary"><strong>Objective:</strong> Create duplicate accounts by bypassing validation.<br><strong>Outcome:</strong> Duplicate accounts were creatable due to weak uniqueness checks.</div>
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Enforce unique constraints at DB level (unique indexes) for email/username.</li>
+          <li>Normalize input (case, whitespace) before uniqueness checks.</li>
+          <li>Rate-limit registration endpoints to reduce abuse.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="login-admin" class="card">
+      <h2>Login Admin (Injection)</h2>
+      <div class="summary"><strong>Objective:</strong> Use SQL injection to bypass authentication.<br><strong>Outcome:</strong> Authentication bypass achieved in lab via injectable input.</div>
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Use parameterized queries or ORM binding; never concatenate user input.</li>
+          <li>Reduce DB permissions for application accounts.</li>
+          <li>Monitor authentication attempts and enable multi-factor where possible.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="stored-xss" class="card">
+      <h2>Classic Stored XSS</h2>
+      <div class="summary"><strong>Objective:</strong> Store persistent malicious content that executes when other users view it.<br><strong>Outcome:</strong> Stored payloads executed; persistent XSS confirmed.</div>
+      <h4>Recommendations</h4>
+      <div class="recommend">
+        <ul>
+          <li>Escape/encode user content on output; sanitize on input with server-side rules.</li>
+          <li>Apply CSP and input validation to reduce impact of stored content.</li>
+          <li>Review stored content regularly and sanitize legacy data if needed.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="appendix" class="card">
+      <h2>Appendix</h2>
+      <p class="small">Supporting diagrams, screenshots and logs are below. Filenames shown assume images are in the repo root:</p>
+
+      <div class="screens">
+        <img src="AppendixA.png" alt="Appendix A — Juice Shop console / challenge solved">
+        <img src="AppendixB.png" alt="Appendix B — Blockchain address / payment artifact">
+        <img src="AppendixC.png" alt="Appendix C — Photo wall / DOM element inspection">
+        <img src="AppendixD.png" alt="Appendix D — Burp / request vs response screenshot">
+        <img src="AppendixE.png" alt="Appendix E — DOM XSS / iframe example">
+        <img src="AppendixF.png" alt="Appendix F — Exploit request/response details">
+        <img src="AppendixG.png" alt="Appendix G — Customer feedback form screenshot">
+        <img src="AppendixH.png" alt="Appendix H — Burp intercept showing JSON payload">
+      </div>
+
+      <p class="small" style="margin-top:12px">If you want selected images displayed inline near each challenge, I can move them into the relevant sections (e.g., DOM XSS image near DOM XSS writeup).</p>
+    </section>
+
+    <footer>
+      <p class="small">Disclaimer: This report is for training/educational purposes only. All testing performed in a controlled lab environment. Do not reproduce these techniques on systems you do not own or have permission to test.</p>
+      <p class="small">© Brady Reid</p>
+    </footer>
+  </div>
+</body>
+</html>
 
