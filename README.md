@@ -89,7 +89,7 @@ No real-world systems or production data were involved.
 ## 👨‍💻 Author
 **Brady D. Reid**  
 Grand Canyon University — B.S. Information Technology & Cybersecurity  
-📧 **bradycreid@protonmail.com**  
+📧 **bradyeid2004@gmail.com**  
 🔗 [LinkedIn](https://www.linkedin.com/in/brady-reidin)  
 💻 [GitHub Portfolio](https://github.com/Brady0Reid)
 
