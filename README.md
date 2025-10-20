@@ -4,7 +4,7 @@
 **Date:** December 2024  
 **Environment:** Controlled Educational Sandbox  
 
-[![View Live Report](https://img.shields.io/badge/View_Live_Report-Click_Here-blue?logo=githubpages&style=for-the-badge)](https://brady0reid.github.io/OWASP-Juice-Shop-CTF/)
+[![View Live Report](https://img.shields.io/badge/View_Live_Report-Click_Here-blue?logo=githubpages&style=for-the-badge)](https://brady0reid.github.io/OWASP-Juice-Shop-CTFs/)
 [![Made with Kali Linux](https://img.shields.io/badge/Made%20with-Kali%20Linux-2684FF?logo=kalilinux&logoColor=white)]()
 [![Uses OWASP Juice Shop](https://img.shields.io/badge/Platform-OWASP%20Juice%20Shop-orange?logo=owasp)]()
 [![Status](https://img.shields.io/badge/Status-Completed-success)]()
@@ -12,16 +12,16 @@
 ---
 
 ## 📘 Overview
-This repository documents a series of **OWASP Juice Shop Capture-the-Flag (CTF)** challenges performed as part of the **ITT-340 Penetration Testing** course at Grand Canyon University.  
-The objective was to exploit web application vulnerabilities in a legal, sandboxed environment and produce structured technical documentation of each finding, including the root cause and recommended mitigation strategies.
+This repository documents a series of **OWASP Juice Shop Capture-the-Flag (CTF)** challenges completed as part of the **ITT-340 Penetration Testing** course at Grand Canyon University.  
+The objective was to exploit web application vulnerabilities in a sandboxed environment and produce structured, professional documentation of findings and remediations.
 
 ---
 
 ## 🔎 Project Objectives
-- Identify, exploit, and document vulnerabilities in **OWASP Juice Shop**.  
-- Demonstrate key penetration testing methodologies (reconnaissance, exploitation, remediation).  
-- Apply ethical hacking practices within a controlled lab environment.  
-- Produce a professional, version-controlled penetration test report for academic assessment.
+- Identify, exploit, and document vulnerabilities in OWASP Juice Shop.  
+- Demonstrate end-to-end testing lifecycle (recon → exploit → report).  
+- Apply ethical hacking techniques responsibly.  
+- Produce a polished academic deliverable demonstrating professional reporting standards.
 
 ---
 
@@ -58,40 +58,36 @@ The objective was to exploit web application vulnerabilities in a legal, sandbox
 ## 🧮 Tools & Technologies
 | Category | Tools Used |
 |-----------|------------|
-| **Operating System** | Kali Linux 2024.2 |
-| **Web Exploitation** | OWASP Juice Shop, Burp Suite, Firefox DevTools |
-| **Reconnaissance** | Nmap, Whois, Wappalyzer |
-| **Exploitation** | Burp Intruder, Repeater, XSS payloads |
-| **Reporting** | Markdown, HTML5, GitHub Pages |
+| **OS** | Kali Linux 2024.2 |
+| **Platform** | OWASP Juice Shop |
+| **Scanning / Exploitation** | Burp Suite, Nmap, Firefox DevTools |
+| **Analysis / Reporting** | Markdown, HTML5, GitHub Pages |
 
 ---
 
-## 📸 Appendix (Screenshots)
-- Appendix A → Juice Shop dashboard & solved challenge proof  
-- Appendix B → Blockchain transaction (redirect validation)  
-- Appendix C → DOM Photo Wall inspection  
-- Appendix D → Burp Suite HTTP request/response  
-- Appendix E → DOM XSS iframe payload  
-- Appendix F → Exploit response capture  
-- Appendix G → Feedback form injection  
-- Appendix H → JSON payload in Burp Repeater  
-
-All appendix files are stored in the repo root for reference.  
+## 📸 Appendix
+Appendix A–H contain screenshots and supporting diagrams:
+- A → Dashboard / solved challenge  
+- B → Blockchain artifact  
+- C → DOM inspection  
+- D → Burp request/response  
+- E → DOM XSS iframe  
+- F → Exploit capture  
+- G → Feedback form  
+- H → JSON payload  
 
 ---
 
-## 🔐 Ethical Use & Disclaimer
-This documentation is for **educational and authorized penetration testing only.**  
-All testing occurred within a private sandbox environment (OWASP Juice Shop).  
-No production or third-party systems were targeted.  
+## 🔐 Disclaimer
+All tests were conducted ethically in a **controlled educational environment** using **OWASP Juice Shop**.  
+No real-world systems or production data were involved.
 
-**Unauthorized access or exploitation of systems is illegal and unethical.**  
-This report is designed to **teach responsible cybersecurity practices.**
+> Unauthorized penetration testing or exploitation is illegal and unethical.
 
 ---
 
 ## 👨‍💻 Author
-**Brady C. Reid**  
+**Brady D. Reid**  
 Grand Canyon University — B.S. Information Technology & Cybersecurity  
 📧 **bradycreid@protonmail.com**  
 🔗 [LinkedIn](https://www.linkedin.com/in/brady-reidin)  
@@ -99,9 +95,9 @@ Grand Canyon University — B.S. Information Technology & Cybersecurity
 
 ---
 
-### 🌐 Live Demo  
-👉 **Visit the full interactive report:**  
-📄 [https://brady0reid.github.io/OWASP-Juice-Shop-CTF/](https://brady0reid.github.io/OWASP-Juice-Shop-CTF/)
+### 🌐 Live Report
+👉 View the full HTML report:  
+**[https://brady0reid.github.io/OWASP-Juice-Shop-CTFs/](https://brady0reid.github.io/OWASP-Juice-Shop-CTFs/)**
 
 ---
 
